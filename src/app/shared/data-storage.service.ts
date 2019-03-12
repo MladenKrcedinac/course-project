@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams, HttpRequest} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { RecipeService } from '../recipes/recipe.service';
 import { Recipe } from '../recipes/recipe.model';
 import { tap } from 'rxjs/operators';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class DataStorageService {
 
-  constructor(private httpClient: HttpClient, private recipeService: RecipeService) {}
+  constructor(private httpClient: HttpClient,
+              private recipeService: RecipeService,
+              private autService: AuthService) {}
 
   storeRecipes() {
     return this.httpClient.put('https://ng-recipe-book-9c156.firebaseio.com/recipes.json',
@@ -25,6 +28,8 @@ export class DataStorageService {
   }
 
   getRecipes() {
+    const token = this.autService.getToken();
+
     this.httpClient.get<Recipe[]>('https://ng-recipe-book-9c156.firebaseio.com/recipes.json')
       .pipe(
         tap(

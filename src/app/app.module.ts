@@ -20,6 +20,10 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { DataStorageService } from './shared/data-storage.service';
 import { AuthInterceptor } from './shared/auth.interceptor';
 import { LoggingInterceptor } from './shared/logging.interceptor';
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,9 @@ import { LoggingInterceptor } from './shared/logging.interceptor';
     ShoppingEditComponent,
     DropdownDirective,
     RecipeStartComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    SignupComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +52,8 @@ import { LoggingInterceptor } from './shared/logging.interceptor';
     ShoppingListService,
     RecipeService,
     DataStorageService,
+    AuthService,
+    AuthGuard,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true}
   ],
