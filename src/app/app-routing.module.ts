@@ -1,31 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RecipesComponent } from './recipes/recipes.component';
+
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
-import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
-import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { SigninComponent } from './auth/signin/signin.component';
-import { AuthGuard } from './auth/auth-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'recipes', pathMatch: 'full' },
-  { path: 'recipes', component: RecipesComponent, children: [
-      { path: '',  component: RecipeStartComponent },
-      { path: 'new', component: RecipeEditComponent, canActivate: [AuthGuard]},
-      { path: ':index', component: RecipeDetailComponent},
-      { path: ':index/edit', component: RecipeEditComponent, canActivate: [AuthGuard]}
-      // child routes with dynamic parameters always goes under static parameters
-      ] },
-  { path: 'shopping-list', component: ShoppingListComponent },
-  { path: 'signup', component: SignupComponent},
-  { path: 'signin', component: SigninComponent}
-
+  { path: 'shopping-list', component: ShoppingListComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes)], // method forRoot se poziva samo u app-routing modulu
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
